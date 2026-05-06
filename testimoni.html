@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<title>Testimoni — Sania Luxury Hotel</title>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav__bar">
+    <div class="nav__header">
+      <div class="logo nav__logo">
+        <div>H</div>
+        <span>SANIA<br>LUXURY HOTEL</span>
+      </div>
+      <div class="nav__menu__btn" id="menu-btn">
+        <i class="ri-menu-line"></i>
+      </div>
+    </div>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="fasilitas.html">Fasilitas</a></li>
+      <li><a href="galeri.html">Galeri</a></li>
+      <li><a href="testimoni.html">Testimoni</a></li>
+      <li><a href="reservasi.html">Reservasi</a></li>
+      <li><a href="lokasi.html">Lokasi</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div style="height:80px; background:var(--primary-color);"></div>
+
+<!-- TESTIMONI -->
+<section id="testimoni" class="testimoni__section">
+  <div class="section__container">
+    <p class="section__subheader text-center">✦ TESTIMONI ✦</p>
+    <h2 class="section__header text-center">Kata Tamu Kami</h2>
+
+    <div class="testimoni__slider" id="testimoniSlider">
+      <div class="testimoni__track" id="testimoniTrack">
+
+        <div class="testimoni__card slide">
+          <div class="testimoni__stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <p class="testimoni__text">"Hotel sangat nyaman dan bersih. Pelayanan stafnya sangat ramah dan membantu. Kamar mandinya bersih sekali dan viewnya luar biasa!"</p>
+          <div class="testimoni__author">
+            <div class="author__avatar">A</div>
+            <div>
+              <h5>Amira Putri</h5>
+              <span>Palembang, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimoni__card slide">
+          <div class="testimoni__stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <p class="testimoni__text">"Pelayanan ramah dan kamar sangat mewah. Saya sangat puas dengan fasilitas lengkap yang disediakan. Pasti akan kembali lagi!"</p>
+          <div class="testimoni__author">
+            <div class="author__avatar">B</div>
+            <div>
+              <h5>Budi Santoso</h5>
+              <span>Jakarta, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimoni__card slide">
+          <div class="testimoni__stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-fill"></i>
+          </div>
+          <p class="testimoni__text">"Lokasi strategis dan fasilitas sangat lengkap. Kolam renangnya luar biasa indah, dan makanan di restorannya enak banget!"</p>
+          <div class="testimoni__author">
+            <div class="author__avatar">C</div>
+            <div>
+              <h5>Clara Wijaya</h5>
+              <span>Bandung, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimoni__card slide">
+          <div class="testimoni__stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <p class="testimoni__text">"Saya suka sekali dengan interior yang mewah dan modern. Wangi ruangannya sangat menenangkan. Highly recommended!"</p>
+          <div class="testimoni__author">
+            <div class="author__avatar">D</div>
+            <div>
+              <h5>Dian Rahayu</h5>
+              <span>Surabaya, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimoni__card slide">
+          <div class="testimoni__stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <p class="testimoni__text">"Kamar mandinya sangat bersih dan toiletries-nya premium. Tempat tidurnya super nyaman, tidur nyenyak banget sepanjang malam!"</p>
+          <div class="testimoni__author">
+            <div class="author__avatar">E</div>
+            <div>
+              <h5>Eko Prasetyo</h5>
+              <span>Yogyakarta, Indonesia</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="testimoni__dots" id="testimoniDots"></div>
+
+      <div class="testimoni__nav">
+        <button class="testimoni__btn" id="prevBtn"><i class="ri-arrow-left-line"></i></button>
+        <button class="testimoni__btn" id="nextBtn"><i class="ri-arrow-right-line"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="logo footer__logo">
+        <div>H</div>
+        <span>SANIA<br>LUXURY HOTEL</span>
+      </div>
+      <p>Menghadirkan pengalaman menginap mewah dan tak terlupakan di jantung kota Palembang.</p>
+      <ul class="footer__socials">
+        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+        <li><a href="#"><i class="ri-whatsapp-line"></i></a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Navigasi</h4>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="fasilitas.html">Fasilitas</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+        <li><a href="testimoni.html">Testimoni</a></li>
+        <li><a href="reservasi.html">Reservasi</a></li>
+        <li><a href="lokasi.html">Lokasi</a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Layanan</h4>
+      <ul class="footer__links">
+        <li><a href="reservasi.html?kamar=Deluxe">Kamar Deluxe</a></li>
+        <li><a href="reservasi.html?kamar=Family">Kamar Family</a></li>
+        <li><a href="reservasi.html?kamar=Penthouse">Penthouse Luxury</a></li>
+        <li><a href="fasilitas.html">Spa & Wellness</a></li>
+        <li><a href="about.html#menu">Restoran</a></li>
+        <li><a href="fasilitas.html">Meeting Room</a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Kontak</h4>
+      <ul class="footer__links footer__contact">
+        <li><i class="ri-map-pin-line"></i> Jl. Sudirman No. 1, Palembang</li>
+        <li><i class="ri-phone-line"></i> +62 711 123456</li>
+        <li><i class="ri-mail-line"></i> info@sanialuxuryhotel.com</li>
+        <li><i class="ri-time-line"></i> 24 Jam / 7 Hari</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <p>Copyright &copy; 2026 Sania Luxury Hotel. All Rights Reserved.</p>
+    <p>Dibuat dengan <i class="ri-heart-fill" style="color:#f6ac0f"></i> untuk tugas kuliah</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+// NAVBAR
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("nav-links");
+const menuBtnIcon = menuBtn.querySelector("i");
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  const isOpen = navLinks.classList.contains("open");
+  menuBtnIcon.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
+});
+navLinks.addEventListener("click", (e) => {
+  if (e.target.tagName === "A") {
+    navLinks.classList.remove("open");
+    menuBtnIcon.setAttribute("class", "ri-menu-line");
+  }
+});
+
+// SCROLL REVEAL
+const scrollRevealOption = { distance: "50px", origin: "bottom", duration: 900, easing: "cubic-bezier(0.16, 1, 0.3, 1)" };
+ScrollReveal().reveal(".testimoni__slider", { ...scrollRevealOption, delay: 100 });
+
+// TESTIMONI SLIDER
+let testimoniIndex = 0;
+let testimoniAutoplay;
+const slides = document.querySelectorAll(".testimoni__card.slide");
+const dotsContainer = document.getElementById("testimoniDots");
+
+slides.forEach((_, i) => {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
+  if (i === 0) dot.classList.add("active");
+  dot.addEventListener("click", () => { goToTestimoni(i); resetAutoplay(); });
+  dotsContainer.appendChild(dot);
+});
+
+function updateDots() {
+  document.querySelectorAll(".dot").forEach((d, i) => {
+    d.classList.toggle("active", i === testimoniIndex);
+  });
+}
+
+function goToTestimoni(idx) {
+  slides.forEach(s => { s.classList.remove("active"); s.style.display = "none"; });
+  testimoniIndex = (idx + slides.length) % slides.length;
+  slides[testimoniIndex].style.display = "block";
+  slides[testimoniIndex].classList.add("active");
+  updateDots();
+}
+
+goToTestimoni(0);
+
+function startAutoplay() {
+  testimoniAutoplay = setInterval(() => { goToTestimoni(testimoniIndex + 1); }, 3000);
+}
+function resetAutoplay() { clearInterval(testimoniAutoplay); startAutoplay(); }
+startAutoplay();
+
+document.getElementById("prevBtn").addEventListener("click", () => { goToTestimoni(testimoniIndex - 1); resetAutoplay(); });
+document.getElementById("nextBtn").addEventListener("click", () => { goToTestimoni(testimoniIndex + 1); resetAutoplay(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+/* ===== KAMAR CARD PICKER ===== */
+.kamar__picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.kamar__option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #fff;
+  overflow: hidden;
+}
+
+.kamar__option:hover {
+  border-color: var(--secondary-color, #f6ac0f);
+  background: #fffdf0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(246,172,15,0.15);
+}
+
+.kamar__option.selected {
+  border-color: var(--secondary-color, #f6ac0f);
+  background: linear-gradient(135deg, #fffbee 0%, #fff8e1 100%);
+  box-shadow: 0 4px 20px rgba(246,172,15,0.25);
+}
+
+.kamar__option__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.kamar__icon {
+  font-size: 1.6rem;
+  color: #cbd5e1;
+  transition: color 0.25s;
+  flex-shrink: 0;
+}
+
+.kamar__option.selected .kamar__icon,
+.kamar__option:hover .kamar__icon {
+  color: var(--secondary-color, #f6ac0f);
+}
+
+.kamar__nama {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-dark, #0f172a);
+  margin-bottom: 3px;
+}
+
+.kamar__fasilitas {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.kamar__option__right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.kamar__harga {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--secondary-color, #f6ac0f);
+  line-height: 1.2;
+}
+
+.kamar__per {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Checkmark icon — tersembunyi kecuali saat selected */
+.kamar__check {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 1.1rem;
+  color: var(--secondary-color, #f6ac0f);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.kamar__option.selected .kamar__check { opacity: 1; }
+
+/* Badge premium */
+.kamar__badge__premium {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, #d4af37, #f6e05e);
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-bottom-right-radius: 8px;
+  letter-spacing: 0.5px;
+}
+</style>
+<title>Reservasi — Sania Luxury Hotel</title>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav__bar">
+    <div class="nav__header">
+      <div class="logo nav__logo">
+        <div>H</div>
+        <span>SANIA<br>LUXURY HOTEL</span>
+      </div>
+      <div class="nav__menu__btn" id="menu-btn">
+        <i class="ri-menu-line"></i>
+      </div>
+    </div>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="fasilitas.html">Fasilitas</a></li>
+      <li><a href="galeri.html">Galeri</a></li>
+      <li><a href="testimoni.html">Testimoni</a></li>
+      <li><a href="reservasi.html">Reservasi</a></li>
+      <li><a href="lokasi.html">Lokasi</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div style="height:80px; background:var(--primary-color);"></div>
+
+<!-- RESERVASI -->
+<section id="reservasi" class="reservasi__section">
+  <div class="section__container">
+    <p class="section__subheader text-center">✦ RESERVASI ✦</p>
+    <h2 class="section__header text-center">Form Reservasi</h2>
+    <p class="section__description text-center">Isi formulir di bawah untuk memesan kamar impian Anda</p>
+
+    <div class="reservasi__wrapper" style="max-width:680px; margin:0 auto;">
+      <form class="reservasi__form" id="formReservasi">
+
+        <div class="form__row">
+          <div class="form__group">
+            <label><i class="ri-user-line"></i> Nama Lengkap *</label>
+            <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
+          </div>
+          <div class="form__group">
+            <label><i class="ri-mail-line"></i> Email</label>
+            <input type="email" id="email" placeholder="email@contoh.com">
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label><i class="ri-phone-line"></i> Nomor Telepon</label>
+            <input type="number" id="telp" placeholder="08xxxxxxxxxx">
+          </div>
+        </div>
+
+        <!-- PILIH KAMAR — CUSTOM CARD PICKER -->
+        <div class="form__group">
+          <label><i class="ri-hotel-bed-line"></i> Tipe Kamar *</label>
+
+          <!-- Hidden input tetap ada agar JS lama tetap berfungsi -->
+          <input type="hidden" id="kamar" required>
+
+          <div class="kamar__picker">
+
+            <div class="kamar__option" data-value="1200000" onclick="pilihKamar(this)">
+              <div class="kamar__option__left">
+                <i class="ri-hotel-bed-line kamar__icon"></i>
+                <div>
+                  <p class="kamar__nama">Kamar Deluxe</p>
+                  <p class="kamar__fasilitas">AC · Smart TV · Mini Bar · WiFi</p>
+                </div>
+              </div>
+              <div class="kamar__option__right">
+                <p class="kamar__harga">Rp 1.200.000</p>
+                <p class="kamar__per">/ malam</p>
+              </div>
+              <i class="ri-checkbox-circle-fill kamar__check"></i>
+            </div>
+
+            <div class="kamar__option" data-value="1800000" onclick="pilihKamar(this)">
+              <div class="kamar__option__left">
+                <i class="ri-home-heart-line kamar__icon"></i>
+                <div>
+                  <p class="kamar__nama">Kamar Family</p>
+                  <p class="kamar__fasilitas">2 Ranjang · Smart TV · Sarapan · WiFi</p>
+                </div>
+              </div>
+              <div class="kamar__option__right">
+                <p class="kamar__harga">Rp 1.800.000</p>
+                <p class="kamar__per">/ malam</p>
+              </div>
+              <i class="ri-checkbox-circle-fill kamar__check"></i>
+            </div>
+
+            <div class="kamar__option" data-value="2500000" onclick="pilihKamar(this)">
+              <div class="kamar__option__left">
+                <i class="ri-vip-crown-line kamar__icon"></i>
+                <div>
+                  <p class="kamar__nama">Penthouse Luxury</p>
+                  <p class="kamar__fasilitas">Butler · VIP Lounge · WiFi Premium</p>
+                </div>
+              </div>
+              <div class="kamar__option__right">
+                <p class="kamar__harga">Rp 2.500.000</p>
+                <p class="kamar__per">/ malam</p>
+              </div>
+              <span class="kamar__badge__premium">Premium</span>
+              <i class="ri-checkbox-circle-fill kamar__check"></i>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label><i class="ri-calendar-check-line"></i> Tanggal Check In *</label>
+            <input type="date" id="checkin" required>
+          </div>
+          <div class="form__group">
+            <label><i class="ri-calendar-2-line"></i> Tanggal Check Out *</label>
+            <input type="date" id="checkout" required>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label><i class="ri-upload-line"></i> Upload Jaminan (Foto KTP/Identitas)</label>
+          <div class="file__upload" id="fileUploadArea">
+            <i class="ri-upload-cloud-2-line"></i>
+            <p>Klik atau seret file ke sini</p>
+            <span>PNG, JPG, PDF (max 5MB)</span>
+            <input type="file" id="jaminan" accept="image/*,.pdf">
+          </div>
+          <div class="file__preview" id="filePreview" style="display:none;">
+            <i class="ri-file-check-line"></i>
+            <span id="fileName"></span>
+            <button type="button" onclick="hapusFile()" class="file__remove"><i class="ri-close-line"></i></button>
+          </div>
+        </div>
+
+        <div class="harga__summary" id="hargaSummary" style="display:none;">
+          <div class="summary__row">
+            <span><i class="ri-moon-line"></i> Jumlah Malam</span>
+            <strong id="jumlahMalam">0 malam</strong>
+          </div>
+          <div class="summary__row">
+            <span><i class="ri-money-dollar-circle-line"></i> Harga per Malam</span>
+            <strong id="hargaPerMalam">Rp0</strong>
+          </div>
+          <div class="summary__divider"></div>
+          <div class="summary__row summary__total">
+            <span>Total Harga</span>
+            <strong id="totalHarga">Rp0</strong>
+          </div>
+          <div class="summary__row summary__dp">
+            <span>DP yang Harus Dibayar (30%)</span>
+            <strong id="dpHarga">Rp0</strong>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--full">
+          <i class="ri-calendar-check-line"></i> Pesan Sekarang
+        </button>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__brand">
+      <div class="logo footer__logo">
+        <div>H</div>
+        <span>SANIA<br>LUXURY HOTEL</span>
+      </div>
+      <p>Menghadirkan pengalaman menginap mewah dan tak terlupakan di jantung kota Palembang.</p>
+      <ul class="footer__socials">
+        <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+        <li><a href="#"><i class="ri-facebook-line"></i></a></li>
+        <li><a href="#"><i class="ri-twitter-x-line"></i></a></li>
+        <li><a href="#"><i class="ri-whatsapp-line"></i></a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Navigasi</h4>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="fasilitas.html">Fasilitas</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+        <li><a href="testimoni.html">Testimoni</a></li>
+        <li><a href="reservasi.html">Reservasi</a></li>
+        <li><a href="lokasi.html">Lokasi</a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Layanan</h4>
+      <ul class="footer__links">
+        <li><a href="reservasi.html?kamar=Deluxe">Kamar Deluxe</a></li>
+        <li><a href="reservasi.html?kamar=Family">Kamar Family</a></li>
+        <li><a href="reservasi.html?kamar=Penthouse">Penthouse Luxury</a></li>
+        <li><a href="fasilitas.html">Spa & Wellness</a></li>
+        <li><a href="about.html#menu">Restoran</a></li>
+        <li><a href="fasilitas.html">Meeting Room</a></li>
+      </ul>
+    </div>
+    <div class="footer__links__group">
+      <h4>Kontak</h4>
+      <ul class="footer__links footer__contact">
+        <li><i class="ri-map-pin-line"></i> Jl. Sudirman No. 1, Palembang</li>
+        <li><i class="ri-phone-line"></i> +62 711 123456</li>
+        <li><i class="ri-mail-line"></i> info@sanialuxuryhotel.com</li>
+        <li><i class="ri-time-line"></i> 24 Jam / 7 Hari</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <p>Copyright &copy; 2026 Sania Luxury Hotel. All Rights Reserved.</p>
+    <p>Dibuat dengan <i class="ri-heart-fill" style="color:#f6ac0f"></i> untuk tugas kuliah</p>
+  </div>
+</footer>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay" class="loading__overlay" style="display:none;">
+  <div class="loading__box">
+    <div class="loading__spinner"></div>
+    <h3>Memproses Reservasi...</h3>
+    <p>Mohon tunggu sebentar</p>
+  </div>
+</div>
+
+<!-- POPUP RESERVASI BERHASIL -->
+<div id="popupOverlay" class="popup__overlay" style="display:none;">
+  <div class="popup__content">
+    <div class="popup__icon">
+      <i class="ri-checkbox-circle-fill"></i>
+    </div>
+    <h2>Reservasi Berhasil!</h2>
+    <p class="popup__subtitle">Terima kasih telah memesan di Sania Luxury Hotel</p>
+
+    <div class="popup__details" id="popupDetails">
+      <div class="popup__detail__row">
+        <span>Nama Tamu</span>
+        <strong id="pNama"></strong>
+      </div>
+      <div class="popup__detail__row">
+        <span>Jenis Kamar</span>
+        <strong id="pKamar"></strong>
+      </div>
+      <div class="popup__detail__row">
+        <span>Check In</span>
+        <strong id="pCheckin"></strong>
+      </div>
+      <div class="popup__detail__row">
+        <span>Check Out</span>
+        <strong id="pCheckout"></strong>
+      </div>
+      <div class="popup__detail__row">
+        <span>Jumlah Malam</span>
+        <strong id="pMalam"></strong>
+      </div>
+      <div class="popup__divider"></div>
+      <div class="popup__detail__row popup__total">
+        <span>Total Harga</span>
+        <strong id="pTotal"></strong>
+      </div>
+      <div class="popup__detail__row popup__dp">
+        <span>DP yang Harus Dibayar (30%)</span>
+        <strong id="pDP"></strong>
+      </div>
+    </div>
+
+    <div class="popup__actions">
+      <button onclick="downloadStruk()" class="btn">
+        <i class="ri-download-line"></i> Download Struk
+      </button>
+      <button onclick="tutupPopup()" class="btn btn--outline--dark">
+        <i class="ri-close-line"></i> Tutup
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- STRUK TERSEMBUNYI (UNTUK DOWNLOAD) -->
+<div id="struk" style="display:none"></div>
+
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+// NAVBAR
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("nav-links");
+const menuBtnIcon = menuBtn.querySelector("i");
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  const isOpen = navLinks.classList.contains("open");
+  menuBtnIcon.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
+});
+navLinks.addEventListener("click", (e) => {
+  if (e.target.tagName === "A") {
+    navLinks.classList.remove("open");
+    menuBtnIcon.setAttribute("class", "ri-menu-line");
+  }
+});
+
+// SCROLL REVEAL
+const scrollRevealOption = { distance: "50px", origin: "bottom", duration: 900, easing: "cubic-bezier(0.16, 1, 0.3, 1)" };
+ScrollReveal().reveal(".reservasi__form", { ...scrollRevealOption, delay: 100, origin: "bottom" });
+
+// ===== AUTO-PILIH KAMAR DARI URL QUERY PARAM =====
+// Contoh: reservasi.html?kamar=Deluxe
+const kamarValueMap = { "Deluxe": "1200000", "Family": "1800000", "Penthouse": "2500000" };
+const urlParams = new URLSearchParams(window.location.search);
+const kamarParam = urlParams.get("kamar");
+const kamarEl = document.getElementById("kamar");
+if (kamarParam && kamarValueMap[kamarParam]) {
+  kamarEl.value = kamarValueMap[kamarParam];
+}
+
+// FILE UPLOAD
+const fileInput = document.getElementById("jaminan");
+const filePreview = document.getElementById("filePreview");
+const fileUploadArea = document.getElementById("fileUploadArea");
+const fileNameEl = document.getElementById("fileName");
+
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (file) {
+    fileNameEl.textContent = file.name;
+    filePreview.style.display = "flex";
+    fileUploadArea.style.display = "none";
+  }
+});
+
+function hapusFile() {
+  fileInput.value = "";
+  filePreview.style.display = "none";
+  fileUploadArea.style.display = "block";
+}
+
+// HITUNG HARGA
+const checkinEl = document.getElementById("checkin");
+const checkoutEl = document.getElementById("checkout");
+const totalHargaEl = document.getElementById("totalHarga");
+const dpHargaEl = document.getElementById("dpHarga");
+const jumlahMalamEl = document.getElementById("jumlahMalam");
+const hargaPerMalamEl = document.getElementById("hargaPerMalam");
+const hargaSummary = document.getElementById("hargaSummary");
+
+const today = new Date().toISOString().split("T")[0];
+checkinEl.min = today;
+checkoutEl.min = today;
+
+checkinEl.addEventListener("change", () => {
+  checkoutEl.min = checkinEl.value;
+  hitungHarga();
+});
+
+function formatRupiah(angka) {
+  return "Rp" + Number(angka).toLocaleString("id-ID");
+}
+
+function getKamarNama(val) {
+  const map = { "1200000": "Kamar Deluxe", "1800000": "Kamar Family", "2500000": "Penthouse Luxury" };
+  return map[val] || val;
+}
+
+let currentTotal = 0;
+let currentDP = 0;
+
+function hitungHarga() {
+  const harga = parseInt(kamarEl.value) || 0;
+  const tgl1 = new Date(checkinEl.value);
+  const tgl2 = new Date(checkoutEl.value);
+  const selisih = Math.round((tgl2 - tgl1) / (1000 * 60 * 60 * 24));
+
+  if (harga > 0 && selisih > 0) {
+    const total = harga * selisih;
+    const dp = total * 0.3;
+    currentTotal = total;
+    currentDP = dp;
+    jumlahMalamEl.textContent = selisih + " malam";
+    hargaPerMalamEl.textContent = formatRupiah(harga);
+    totalHargaEl.textContent = formatRupiah(total);
+    dpHargaEl.textContent = formatRupiah(dp);
+    hargaSummary.style.display = "flex";
+  } else {
+    hargaSummary.style.display = "none";
+  }
+}
+
+// FORM RESERVASI
+const form = document.getElementById("formReservasi");
+
+// ===== KAMAR CARD PICKER =====
+const kamarNamaMap = {
+  "1200000": "Kamar Deluxe",
+  "1800000": "Kamar Family",
+  "2500000": "Penthouse Luxury"
+};
+
+function pilihKamar(el) {
+  // Hapus selected dari semua card
+  document.querySelectorAll(".kamar__option").forEach(c => c.classList.remove("selected"));
+  // Tandai yang dipilih
+  el.classList.add("selected");
+  // Set nilai hidden input agar JS hitung harga tetap jalan
+  kamarEl.value = el.getAttribute("data-value");
+  hitungHarga();
+}
+
+// Auto-pilih dari URL param
+if (kamarParam && kamarValueMap[kamarParam]) {
+  const targetVal = kamarValueMap[kamarParam];
+  const targetCard = document.querySelector(`.kamar__option[data-value="${targetVal}"]`);
+  if (targetCard) pilihKamar(targetCard);
+}
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const nama = document.getElementById("nama").value.trim();
+  const kamarVal = kamarEl.value;
+  const checkinVal = checkinEl.value;
+  const checkoutVal = checkoutEl.value;
+
+  if (!nama) { alert("Mohon isi nama lengkap Anda."); return; }
+  if (!kamarVal) { alert("Mohon pilih tipe kamar."); return; }
+  if (!checkinVal || !checkoutVal) { alert("Mohon isi tanggal check-in dan check-out."); return; }
+
+  const tgl1 = new Date(checkinVal);
+  const tgl2 = new Date(checkoutVal);
+  if (tgl2 <= tgl1) { alert("Tanggal check-out harus setelah tanggal check-in!"); return; }
+
+  const selisih = Math.round((tgl2 - tgl1) / (1000 * 60 * 60 * 24));
+
+  document.getElementById("loadingOverlay").style.display = "flex";
+
+  setTimeout(() => {
+    document.getElementById("loadingOverlay").style.display = "none";
+
+    document.getElementById("pNama").textContent = nama;
+    document.getElementById("pKamar").textContent = getKamarNama(kamarVal);
+    document.getElementById("pCheckin").textContent = formatTanggal(checkinVal);
+    document.getElementById("pCheckout").textContent = formatTanggal(checkoutVal);
+    document.getElementById("pMalam").textContent = selisih + " malam";
+    document.getElementById("pTotal").textContent = formatRupiah(currentTotal);
+    document.getElementById("pDP").textContent = formatRupiah(currentDP);
+
+    document.getElementById("struk").innerHTML =
+      "=== STRUK RESERVASI ===\n" +
+      "Hotel: Sania Luxury Hotel\n" +
+      "Nama Tamu: " + nama + "\n" +
+      "Kamar: " + getKamarNama(kamarVal) + "\n" +
+      "Check In: " + formatTanggal(checkinVal) + "\n" +
+      "Check Out: " + formatTanggal(checkoutVal) + "\n" +
+      "Jumlah Malam: " + selisih + " malam\n" +
+      "Total Harga: " + formatRupiah(currentTotal) + "\n" +
+      "DP (30%): " + formatRupiah(currentDP) + "\n" +
+      "======================\n" +
+      "Terima kasih telah memilih Sania Luxury Hotel!";
+
+    document.getElementById("popupOverlay").style.display = "flex";
+  }, 2000);
+});
+
+function formatTanggal(dateStr) {
+  if (!dateStr) return "-";
+  const d = new Date(dateStr);
+  const options = { day: "numeric", month: "long", year: "numeric" };
+  return d.toLocaleDateString("id-ID", options);
+}
+
+function tutupPopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+  form.reset();
+  hargaSummary.style.display = "none";
+  // Reset card picker
+  kamarEl.value = "";
+  document.querySelectorAll(".kamar__option").forEach(c => c.classList.remove("selected"));
+  filePreview.style.display = "none";
+  fileUploadArea.style.display = "block";
+  currentTotal = 0;
+  currentDP = 0;
+}
+
+function downloadStruk() {
+  const teks = document.getElementById("struk").innerHTML
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  const blob = new Blob([teks], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "struk_reservasi_sania_hotel.txt";
+  link.click();
+}
+
+document.getElementById("popupOverlay").addEventListener("click", function(e) {
+  if (e.target === this) tutupPopup();
+});
+</script>
+</body>
+</html>
